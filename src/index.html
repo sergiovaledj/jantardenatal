@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Amigo Secreto — Jantar de Natal 2026</title>
+  <title>Sorteio de Natal — Jantar Futebol 2026</title>
 
   <style>
     * {
@@ -69,11 +69,11 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.96);
+      background: rgba(255, 255, 255, 0.96);
       color: #172019;
       border-radius: 22px;
       padding: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
     }
 
     .card h2 {
@@ -118,11 +118,52 @@
       margin-top: 20px;
       font-size: 14px;
       line-height: 1.4;
+      font-weight: normal;
     }
 
     .checkbox input {
       width: auto;
       margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    .sortition-box {
+      margin-top: 18px;
+      padding: 15px;
+      border-radius: 14px;
+      background: #f0f4f1;
+      border: 1px solid #dce4de;
+    }
+
+    .sortition-box .checkbox {
+      margin-top: 0;
+      font-weight: bold;
+    }
+
+    .optional {
+      font-size: 12px;
+      font-weight: normal;
+      color: #78817b;
+      margin-left: 4px;
+    }
+
+    .required-info {
+      display: none;
+      margin-top: 12px;
+      padding: 11px;
+      border-radius: 10px;
+      background: #fff7df;
+      color: #665321;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .sortition-active .required-info {
+      display: block;
+    }
+
+    .sortition-active .optional {
+      display: none;
     }
 
     button {
@@ -159,6 +200,10 @@
       font-size: 12px;
     }
 
+    .hidden {
+      display: none;
+    }
+
     @media (max-width: 380px) {
       h1 {
         font-size: 32px;
@@ -175,20 +220,21 @@
 
   <main class="container">
 
+    <!-- CABEÇALHO -->
     <section class="hero">
 
       <div class="ball">⚽</div>
 
       <div class="badge">
-        Camisolas Retro
+        SORTEIO DE NATAL
       </div>
 
       <h1>
-        Amigo Secreto
+        JANTAR FUTEBOL 2026
       </h1>
 
       <p class="subtitle">
-        Jantar de Natal 2026
+        Amigo Secreto
       </p>
 
       <div class="date">
@@ -197,54 +243,79 @@
 
     </section>
 
+
+    <!-- FORMULÁRIO -->
     <section class="card">
 
       <h2>
-        Entra no jogo 🎁
+        Conhece as Regras 🎁
       </h2>
 
       <p class="intro">
-        Este ano o nosso amigo secreto tem uma regra especial:
-        cada participante oferece uma <strong>camisola de futebol retro</strong>
-        à pessoa que lhe calhar no sorteio.
+        Pois é meus amigos, chegou a altura do ano mais esperada,
+        e tá aí à porta o nosso jantar de Natal e, como tradição,
+        vamos manter o nosso sorteio/amigo secreto de camisolas de Futebol.
       </p>
 
       <p class="intro">
-        Inscreve-te abaixo e indica o teu tamanho.
-        Depois do sorteio, receberás por email o nome da pessoa
-        a quem vais oferecer a camisola.
+        Como regra já sabem, vamos para equipamentos
+        <strong>Clássicos/Retro</strong>.
       </p>
 
-      <form>
+      <p class="intro">
+        <strong>Valor da camisola: 16€</strong>
+      </p>
 
+      <p class="intro">
+        Confirma abaixo a tua presença no jantar e, se quiseres,
+        participa também no sorteio da camisola.
+      </p>
+
+
+      <form id="registrationForm">
+
+        <!-- NOME -->
         <label for="name">
           O teu nome
         </label>
 
         <input
           id="name"
+          name="name"
           type="text"
           placeholder="Ex.: Sérgio Vale"
           required
         >
 
+
+        <!-- EMAIL -->
         <label for="email">
           O teu email
+          <span class="optional">(opcional)</span>
         </label>
 
         <input
           id="email"
+          name="email"
           type="email"
           placeholder="Ex.: sergio@email.com"
-          required
         >
 
+
+        <!-- TAMANHO -->
         <label for="size">
           Tamanho da camisola
+          <span class="optional">(opcional)</span>
         </label>
 
-        <select id="size" required>
-          <option value="">Seleciona o tamanho</option>
+        <select
+          id="size"
+          name="size"
+        >
+          <option value="">
+            Seleciona o tamanho
+          </option>
+
           <option value="S">S</option>
           <option value="M">M</option>
           <option value="L">L</option>
@@ -252,34 +323,257 @@
           <option value="XXL">XXL</option>
         </select>
 
+
+        <!-- PRESENÇA NO JANTAR -->
         <label class="checkbox">
-          <input type="checkbox" required>
+
+          <input
+            id="dinner"
+            name="dinner"
+            type="checkbox"
+            required
+          >
 
           <span>
-            Confirmo a minha participação no amigo secreto
-            e aceito receber por email o resultado do sorteio.
+            <strong>Confirmo a minha presença no jantar de Natal.</strong>
           </span>
+
         </label>
 
+
+        <!-- PARTICIPAÇÃO NO SORTEIO -->
+        <div
+          class="sortition-box"
+          id="sortitionBox"
+        >
+
+          <label class="checkbox">
+
+            <input
+              id="sortition"
+              name="sortition"
+              type="checkbox"
+            >
+
+            <span>
+              <strong>Quero participar no sorteio/amigo secreto de camisolas.</strong>
+            </span>
+
+          </label>
+
+
+          <div class="required-info">
+            Como escolheste participar no sorteio,
+            o <strong>email</strong> e o <strong>tamanho da camisola</strong>
+            passam a ser obrigatórios.
+          </div>
+
+        </div>
+
+
+        <!-- BOTÃO -->
         <button type="submit">
           ⚽ Confirmar participação
         </button>
 
       </form>
 
+
+      <!-- AVISO -->
       <div class="notice">
-        🤫 O resultado do sorteio será enviado individualmente
-        por email. O administrador também participa e não terá
-        acesso aos resultados.
+
+        🤫 Se participares no sorteio, receberás posteriormente
+        por email o nome da pessoa a quem vais oferecer a camisola.
+
+        <br><br>
+
+        O resultado do sorteio será privado e o administrador
+        também participa no sorteio.
+
       </div>
 
     </section>
 
+
     <footer>
-      Jantar de Natal 2026 · Camisolas de Futebol Retro
+      Jantar de Natal 2026 · Sorteio de Camisolas Retro
     </footer>
 
   </main>
+
+
+  <script>
+
+    /*
+     * ============================================================
+     * LINK DAS CAMISOLAS
+     * ============================================================
+     *
+     * ALTERAR ESTE LINK ANTES DO SORTEIO.
+     *
+     * É este endereço que será incluído no email enviado
+     * a cada participante.
+     *
+     */
+
+    const SHIRT_LINK =
+      "https://x.yupoo.com/photos/1022669895/albums?tab=gallery";
+
+
+    /*
+     * ============================================================
+     * CAMPOS DO FORMULÁRIO
+     * ============================================================
+     */
+
+    const form = document.getElementById("registrationForm");
+
+    const sortition =
+      document.getElementById("sortition");
+
+    const sortitionBox =
+      document.getElementById("sortitionBox");
+
+    const email =
+      document.getElementById("email");
+
+    const size =
+      document.getElementById("size");
+
+
+    /*
+     * ============================================================
+     * PARTICIPAÇÃO NO SORTEIO
+     * ============================================================
+     *
+     * Quando a pessoa marca o sorteio:
+     *
+     * EMAIL -> obrigatório
+     * TAMANHO -> obrigatório
+     *
+     * Quando desmarca:
+     *
+     * EMAIL -> opcional
+     * TAMANHO -> opcional
+     */
+
+    function updateSortitionFields() {
+
+      if (sortition.checked) {
+
+        sortitionBox.classList.add("sortition-active");
+
+        email.required = true;
+        size.required = true;
+
+      } else {
+
+        sortitionBox.classList.remove("sortition-active");
+
+        email.required = false;
+        size.required = false;
+
+      }
+
+    }
+
+
+    sortition.addEventListener(
+      "change",
+      updateSortitionFields
+    );
+
+
+    /*
+     * ============================================================
+     * ENVIO DO FORMULÁRIO
+     * ============================================================
+     *
+     * Neste momento o formulário ainda está preparado para
+     * receber a ligação ao backend.
+     *
+     * NÃO colocar aqui passwords, chaves de API ou credenciais.
+     *
+     */
+
+    form.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      /*
+       * Atualiza novamente os campos obrigatórios
+       * antes de validar.
+       */
+
+      updateSortitionFields();
+
+
+      /*
+       * Validação HTML normal.
+       */
+
+      if (!form.checkValidity()) {
+
+        form.reportValidity();
+
+        return;
+      }
+
+
+      /*
+       * Aqui iremos posteriormente ligar o formulário
+       * à base de dados / sistema de inscrição.
+       *
+       * Os dados que serão enviados serão:
+       *
+       * name      -> nome
+       * email     -> email (se participar no sorteio)
+       * size      -> tamanho (se participar no sorteio)
+       * dinner    -> presença no jantar
+       * sortition -> participação no sorteio
+       */
+
+      const data = {
+
+        name: document.getElementById("name").value.trim(),
+
+        email: email.value.trim(),
+
+        size: size.value,
+
+        dinner: document.getElementById("dinner").checked,
+
+        sortition: sortition.checked
+
+      };
+
+
+      console.log("Dados da inscrição:", data);
+
+
+      /*
+       * Temporariamente mostramos uma mensagem.
+       * Depois de ligarmos o backend, esta parte será substituída
+       * pelo envio real dos dados.
+       */
+
+      if (data.sortition) {
+
+        alert(
+          "Inscrição preparada! Participas no jantar e no sorteio."
+        );
+
+      } else {
+
+        alert(
+          "Inscrição preparada! Confirmaste a tua presença no jantar."
+        );
+
+      }
+
+    });
+
+  </script>
 
 </body>
 </html>
