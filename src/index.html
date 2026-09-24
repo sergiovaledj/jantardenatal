@@ -402,178 +402,241 @@
   </main>
 
 
-  <script>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  /*
+   * ============================================================
+   * SUPABASE
+   * ============================================================
+   */
+
+  const SUPABASE_URL =
+    "https://nnddxfsektbzrqwxqdpf.supabase.co";
+
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_-J83hYkkwwNd-dmRkPqTFQ_qfQBqMDF";
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+  /*
+   * ============================================================
+   * LINK DAS CAMISOLAS
+   * ============================================================
+   *
+   * ALTERAR ANTES DO SORTEIO.
+   */
+
+  const SHIRT_LINK =
+    "https://x.yupoo.com/photos/1022669895/albums?tab=gallery";
+
+
+  /*
+   * ============================================================
+   * ELEMENTOS DO FORMULÁRIO
+   * ============================================================
+   */
+
+  const form =
+    document.getElementById("registrationForm");
+
+  const sortition =
+    document.getElementById("sortition");
+
+  const sortitionBox =
+    document.getElementById("sortitionBox");
+
+  const email =
+    document.getElementById("email");
+
+  const size =
+    document.getElementById("size");
+
+  const submitButton =
+    form.querySelector("button");
+
+
+  /*
+   * ============================================================
+   * CAMPOS DO SORTEIO
+   * ============================================================
+   *
+   * Se participar no sorteio:
+   *
+   * EMAIL  = obrigatório
+   * TAMANHO = obrigatório
+   *
+   * Se não participar:
+   *
+   * EMAIL  = opcional
+   * TAMANHO = opcional
+   */
+
+  function updateSortitionFields() {
+
+    if (sortition.checked) {
+
+      sortitionBox.classList.add("sortition-active");
+
+      email.required = true;
+      size.required = true;
+
+    } else {
+
+      sortitionBox.classList.remove("sortition-active");
+
+      email.required = false;
+      size.required = false;
+
+    }
+
+  }
+
+
+  sortition.addEventListener(
+    "change",
+    updateSortitionFields
+  );
+
+
+  /*
+   * ============================================================
+   * ENVIO DO FORMULÁRIO
+   * ============================================================
+   */
+
+  form.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    updateSortitionFields();
 
     /*
-     * ============================================================
-     * LINK DAS CAMISOLAS
-     * ============================================================
-     *
-     * ALTERAR ESTE LINK ANTES DO SORTEIO.
-     *
-     * É este endereço que será incluído no email enviado
-     * a cada participante.
-     *
+     * Validação dos campos obrigatórios
      */
 
-    const SHIRT_LINK =
-      "https://x.yupoo.com/photos/1022669895/albums?tab=gallery";
+    if (!form.checkValidity()) {
 
+      form.reportValidity();
 
-    /*
-     * ============================================================
-     * CAMPOS DO FORMULÁRIO
-     * ============================================================
-     */
-
-    const form = document.getElementById("registrationForm");
-
-    const sortition =
-      document.getElementById("sortition");
-
-    const sortitionBox =
-      document.getElementById("sortitionBox");
-
-    const email =
-      document.getElementById("email");
-
-    const size =
-      document.getElementById("size");
-
-
-    /*
-     * ============================================================
-     * PARTICIPAÇÃO NO SORTEIO
-     * ============================================================
-     *
-     * Quando a pessoa marca o sorteio:
-     *
-     * EMAIL -> obrigatório
-     * TAMANHO -> obrigatório
-     *
-     * Quando desmarca:
-     *
-     * EMAIL -> opcional
-     * TAMANHO -> opcional
-     */
-
-    function updateSortitionFields() {
-
-      if (sortition.checked) {
-
-        sortitionBox.classList.add("sortition-active");
-
-        email.required = true;
-        size.required = true;
-
-      } else {
-
-        sortitionBox.classList.remove("sortition-active");
-
-        email.required = false;
-        size.required = false;
-
-      }
+      return;
 
     }
 
 
-    sortition.addEventListener(
-      "change",
-      updateSortitionFields
-    );
+    /*
+     * Recolher os dados
+     */
+
+    const data = {
+
+      name:
+        document.getElementById("name").value.trim(),
+
+      email:
+        email.value.trim() || null,
+
+      shirt_size:
+        size.value || null,
+
+      dinner:
+        document.getElementById("dinner").checked,
+
+      sortition:
+        sortition.checked
+
+    };
 
 
     /*
-     * ============================================================
-     * ENVIO DO FORMULÁRIO
-     * ============================================================
-     *
-     * Neste momento o formulário ainda está preparado para
-     * receber a ligação ao backend.
-     *
-     * NÃO colocar aqui passwords, chaves de API ou credenciais.
-     *
+     * Bloquear o botão enquanto enviamos
      */
 
-    form.addEventListener("submit", function(event) {
+    submitButton.disabled = true;
 
-      event.preventDefault();
-
-      /*
-       * Atualiza novamente os campos obrigatórios
-       * antes de validar.
-       */
-
-      updateSortitionFields();
+    submitButton.textContent =
+      "⏳ A guardar inscrição...";
 
 
-      /*
-       * Validação HTML normal.
-       */
+    /*
+     * Enviar para o Supabase
+     */
 
-      if (!form.checkValidity()) {
-
-        form.reportValidity();
-
-        return;
-      }
+    const { error } =
+      await supabaseClient
+        .from("participants")
+        .insert(data);
 
 
-      /*
-       * Aqui iremos posteriormente ligar o formulário
-       * à base de dados / sistema de inscrição.
-       *
-       * Os dados que serão enviados serão:
-       *
-       * name      -> nome
-       * email     -> email (se participar no sorteio)
-       * size      -> tamanho (se participar no sorteio)
-       * dinner    -> presença no jantar
-       * sortition -> participação no sorteio
-       */
+    /*
+     * Se houver erro
+     */
 
-      const data = {
+    if (error) {
 
-        name: document.getElementById("name").value.trim(),
+      console.error(
+        "Erro Supabase:",
+        error
+      );
 
-        email: email.value.trim(),
+      alert(
+        "Não foi possível guardar a inscrição. " +
+        "Verifica a ligação à internet e tenta novamente."
+      );
 
-        size: size.value,
+      submitButton.disabled = false;
 
-        dinner: document.getElementById("dinner").checked,
+      submitButton.textContent =
+        "⚽ Confirmar participação";
 
-        sortition: sortition.checked
+      return;
 
-      };
+    }
 
 
-      console.log("Dados da inscrição:", data);
+    /*
+     * Inscrição concluída
+     */
+
+    if (data.sortition) {
+
+      alert(
+        "Inscrição concluída! ⚽\n\n" +
+        "Confirmaste a tua presença no jantar " +
+        "e estás inscrito no sorteio."
+      );
+
+    } else {
+
+      alert(
+        "Inscrição concluída! 🎄\n\n" +
+        "Confirmaste a tua presença no jantar."
+      );
+
+    }
 
 
-      /*
-       * Temporariamente mostramos uma mensagem.
-       * Depois de ligarmos o backend, esta parte será substituída
-       * pelo envio real dos dados.
-       */
+    /*
+     * Limpar formulário
+     */
 
-      if (data.sortition) {
+    form.reset();
 
-        alert(
-          "Inscrição preparada! Participas no jantar e no sorteio."
-        );
+    updateSortitionFields();
 
-      } else {
+    submitButton.disabled = false;
 
-        alert(
-          "Inscrição preparada! Confirmaste a tua presença no jantar."
-        );
+    submitButton.textContent =
+      "⚽ Confirmar participação";
 
-      }
+  });
 
-    });
-
-  </script>
+</script>
 
 </body>
 </html>
