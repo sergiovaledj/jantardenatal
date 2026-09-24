@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Amigo Secreto — Jantar de Natal 2026</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top, #244c35 0%, #10291d 45%, #07140e 100%);
+      color: #fff;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 24px 18px 50px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 30px 10px 25px;
+    }
+
+    .ball {
+      font-size: 54px;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 14px;
+      border: 1px solid #c9a646;
+      border-radius: 30px;
+      color: #e4c765;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 8px;
+      font-family: Georgia, serif;
+      font-size: 38px;
+      line-height: 1.05;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: #d9dfda;
+      font-size: 17px;
+    }
+
+    .date {
+      margin-top: 18px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #e4c765;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.96);
+      color: #172019;
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.35);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-family: Georgia, serif;
+      font-size: 25px;
+    }
+
+    .intro {
+      line-height: 1.6;
+      color: #4b554e;
+    }
+
+    label {
+      display: block;
+      margin-top: 18px;
+      margin-bottom: 7px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccd3ce;
+      border-radius: 12px;
+      font-size: 16px;
+      background: #fff;
+    }
+
+    input:focus,
+    select:focus {
+      outline: 2px solid #c9a646;
+      border-color: #c9a646;
+    }
+
+    .checkbox {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .checkbox input {
+      width: auto;
+      margin-top: 3px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 16px;
+      border: 0;
+      border-radius: 13px;
+      background: #183d29;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #245b3d;
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 13px;
+      border-radius: 12px;
+      background: #f0f4f1;
+      color: #465149;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 25px;
+      color: #9eaaa2;
+      font-size: 12px;
+    }
+
+    @media (max-width: 380px) {
+      h1 {
+        font-size: 32px;
+      }
+
+      .card {
+        padding: 19px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <section class="hero">
+
+      <div class="ball">⚽</div>
+
+      <div class="badge">
+        Camisolas Retro
+      </div>
+
+      <h1>
+        Amigo Secreto
+      </h1>
+
+      <p class="subtitle">
+        Jantar de Natal 2026
+      </p>
+
+      <div class="date">
+        10 de dezembro de 2026
+      </div>
+
+    </section>
+
+    <section class="card">
+
+      <h2>
+        Entra no jogo 🎁
+      </h2>
+
+      <p class="intro">
+        Este ano o nosso amigo secreto tem uma regra especial:
+        cada participante oferece uma <strong>camisola de futebol retro</strong>
+        à pessoa que lhe calhar no sorteio.
+      </p>
+
+      <p class="intro">
+        Inscreve-te abaixo e indica o teu tamanho.
+        Depois do sorteio, receberás por email o nome da pessoa
+        a quem vais oferecer a camisola.
+      </p>
+
+      <form>
+
+        <label for="name">
+          O teu nome
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Ex.: Sérgio Vale"
+          required
+        >
+
+        <label for="email">
+          O teu email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="Ex.: sergio@email.com"
+          required
+        >
+
+        <label for="size">
+          Tamanho da camisola
+        </label>
+
+        <select id="size" required>
+          <option value="">Seleciona o tamanho</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+        </select>
+
+        <label class="checkbox">
+          <input type="checkbox" required>
+
+          <span>
+            Confirmo a minha participação no amigo secreto
+            e aceito receber por email o resultado do sorteio.
+          </span>
+        </label>
+
+        <button type="submit">
+          ⚽ Confirmar participação
+        </button>
+
+      </form>
+
+      <div class="notice">
+        🤫 O resultado do sorteio será enviado individualmente
+        por email. O administrador também participa e não terá
+        acesso aos resultados.
+      </div>
+
+    </section>
+
+    <footer>
+      Jantar de Natal 2026 · Camisolas de Futebol Retro
+    </footer>
+
+  </main>
+
+</body>
+</html>
